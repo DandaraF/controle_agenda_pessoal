@@ -6,7 +6,6 @@
             <span>Agenda</span> 
             </div>
         </div>
-
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#">Meu Cadastro</a>
