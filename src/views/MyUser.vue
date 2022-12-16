@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-myuser">
     <Form/>
     
   </div>
@@ -16,3 +16,11 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.container-myuser{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+</style>

@@ -6,6 +6,13 @@
             <span>Agenda</span> 
             </div>
         </div>
+        <div class="nav-btn">
+          <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+       </div>
         <div class="nav-links">
           <router-link  to="/home" id="home"> Home</router-link>
           <router-link  to="/meu_cadastro" id="myuser">Meu Cadastro</router-link>

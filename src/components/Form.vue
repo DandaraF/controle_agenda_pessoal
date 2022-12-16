@@ -48,6 +48,7 @@ export default {
     max-width: 430px;
     padding: 20px;
     background-color: #eeeded;
+
 }
 
 
