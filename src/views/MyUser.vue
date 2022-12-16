@@ -1,17 +1,17 @@
 <template>
-    <form action="">
-        <Input/>
-        aqui
-    </form>
+  <div>
+    <Form/>
+    
+  </div>
  </template>
 
 <script>
-import Input from '../components/Input.vue'
+import Form from '../components/Form'
 
 export default {
   name: 'MyUser',
   components:{
-    Input
+    Form
   }
 
 }
