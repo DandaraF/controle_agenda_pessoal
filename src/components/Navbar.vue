@@ -7,12 +7,12 @@
             </div>
         </div>
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Meu Cadastro</a>
-            <a href="#">Usuários</a>
-            <a href="#">Pessoas</a>
-            <a href="#">Contatos</a>
-            <a href="#">Logout</a>
+          <router-link  to="/home" id="home"> Home</router-link>
+          <router-link  to="/meu_cadastro" id="myuser">Meu Cadastro</router-link>
+          <router-link  to="/usuarios" id="users">Usuários</router-link>
+          <router-link  to="/pessoas" id="users">Pessoas</router-link>
+          <router-link  to="/contatos" id="users">Contatos</router-link>
+          <router-link  to="#" id="users">Logout</router-link>
         </div>
     </div>
 </template>
