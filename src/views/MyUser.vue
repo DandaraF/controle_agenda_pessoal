@@ -1,16 +1,17 @@
 <template>
-    <form action="">
-       <Search/>
-    </form>
+  <div>
+    <Form/>
+    
+  </div>
  </template>
 
 <script>
-import Search from '../components/Search.vue'
+import Form from '../components/Form'
 
 export default {
   name: 'MyUser',
   components:{
-    Search
+    Form
   }
 
 }

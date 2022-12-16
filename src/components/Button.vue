@@ -8,7 +8,7 @@
 
 
 export default {
-    name: 'Picture',
+    name: 'Button',
     props:{
         alt: String,
         avatar_user: String
@@ -19,20 +19,23 @@ export default {
         }
     }
 }
-   
-   
+
+
 </script>
 
 <style scoped>
-
-img{
-    width: 150px;
-    height: 150px;
-    border-radius: 3px 3px 3px 0px;
-    -moz-border-radius: 3px 3px 3px 0px;
-    -webkit-border-radius: 3px 3px 3px 0px;
-    border: 2px solid rgb(169, 172, 19);
-    border-bottom: 0;
-    padding: 6px;
+#btn-login{
+  width: 100%;
+  height: 30px;
+  background-color: rgb(160, 160, 0);
+  font-size: 1.2rem;
+  color:#fff;
+  border: none;
+  cursor: pointer;
 }
+#btn-login:hover{
+  background-color: rgba(126, 126, 37, 0.616);
+}
+
 </style>
+   

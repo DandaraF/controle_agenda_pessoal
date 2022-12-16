@@ -70,4 +70,5 @@ input::placeholder{
     font-style: italic;
     color: rgba(78, 77, 77, 0.788);
 }
+
 </style>

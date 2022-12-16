@@ -1,7 +1,7 @@
 <template>
     <div class="content-input">
         <label > {{text_label}} </label>
-        <input type="text" class="input-text" :value="value_input" >
+        <input :type="type_input" class="input-text" :value="value_input" >
     </div>
 </template>
 
@@ -11,8 +11,10 @@ export default {
   name: 'Input',
     props:{
         text_label:String,
-        value_input: String
+        value_input: String,
+        type_input: String
     },
+
  }
 
 </script>
@@ -29,18 +31,23 @@ export default {
   text-transform: capitalize;
   color: #fff;
   font-weight: 500;
-  gap: 4px;
-  margin-bottom:10px;
+  gap: 5px;
+  margin-bottom:15px;
 }
 
+label{
+  border-left: 4px solid rgb(160, 160, 0);
+  color: #000;
+  padding-left: 3px;
+  font-weight: 560;
 
+}
 .input-text{
   height: 30px;
-  border: none;
-  background-color: rgba(241, 241, 241, 0.178);
+  min-width: 250px;
+  border: 1px solid rgb(122, 122, 122);
   font-size: 1rem;
-  padding-left:10px;
-  color: #fff;
-  border-left: 3px solid rgb(160, 160, 0);
+  padding-left: 10px;
 }
+
 </style>
