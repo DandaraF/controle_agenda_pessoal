@@ -1,17 +1,16 @@
 <template>
     <form action="">
-        <Input/>
-        aqui
+       <Search/>
     </form>
  </template>
 
 <script>
-import Input from '../components/Input.vue'
+import Search from '../components/Search.vue'
 
 export default {
   name: 'MyUser',
   components:{
-    Input
+    Search
   }
 
 }
