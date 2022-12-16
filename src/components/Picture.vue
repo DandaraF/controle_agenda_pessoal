@@ -32,7 +32,6 @@ img{
     -moz-border-radius: 3px 3px 3px 0px;
     -webkit-border-radius: 3px 3px 3px 0px;
     border: 2px solid rgb(169, 172, 19);
-    border-bottom: 0;
     padding: 6px;
 }
 </style>
