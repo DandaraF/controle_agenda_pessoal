@@ -101,14 +101,14 @@ h2{
 
 table{
   width: 100%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
   min-width: 900px;
   border-collapse: collapse;
 }
 
 thead th{
-  position: sticky;
-  top:0;
+  /* position: sticky; */
+  /* top:0; */
   background-color: #f6f9fc;
   color: #8493a5;
   font-size: 15px;
