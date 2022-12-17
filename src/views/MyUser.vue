@@ -18,12 +18,12 @@ export default {
 </script>
 
 <style scoped>
+
 .container-myuser{
   display: flex;
   align-content: center;
   justify-content: center;
   padding: 40px 20px 0 20px;
-
   align-items: center;
 }
 
