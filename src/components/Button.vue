@@ -24,9 +24,9 @@ button{
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  padding: 10px;
+  padding: 8px;
   color: #fff;
-  min-width: 60px;
+  min-width: 55px;
 }
 
  button:nth-child(1){

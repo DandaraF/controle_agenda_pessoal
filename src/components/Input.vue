@@ -31,19 +31,18 @@ export default {
   text-transform: capitalize;
   color: #fff;
   font-weight: 500;
-  gap: 5px;
-  margin-bottom:15px;
+  /* gap: 5px; */
 }
 
 label{
   border-left: 4px solid rgb(160, 160, 0);
   color: #000;
+  margin: 0 0 3px 0;
   padding-left: 3px;
   font-weight: 560;
-
 }
 .input-text{
-  height: 30px;
+  height: 33px;
   min-width: 250px;
   border: 1px solid rgb(122, 122, 122);
   font-size: 1rem;
