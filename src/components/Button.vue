@@ -32,9 +32,9 @@ button{
  button:nth-child(1){
   background-color: rgb(160, 160, 0);
 }
- button:nth-child(2){
+ /* button:nth-child(2){
   background-color: #f80000;
-}
+} */
 
 /* .add_new{
   padding: 10px 20px;

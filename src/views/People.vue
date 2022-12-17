@@ -40,8 +40,6 @@
     </div>
   </div>
 
-    
-
   </div>
  </template>
 
@@ -67,7 +65,6 @@ h2{
 
 #search{
   width: 25px;
-
 }
 
 .content-people-header{
@@ -118,9 +115,7 @@ th,td{
   word-break: break-all;
   text-align: center;
 }
-td{
-  min-width: 160px;
-}
+
 
 .address{
   max-width: 350px;
