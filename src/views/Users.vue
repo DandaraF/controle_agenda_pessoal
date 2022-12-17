@@ -5,9 +5,7 @@
       <h2>Usuários</h2>
         
       <Button text_button="+ Add Usuário"/>
-      <!-- <div>
-        <button class="add_new"> + Add New</button>
-      </div> -->
+
     </div>
 
     <div class="table_section">
@@ -21,7 +19,6 @@
             <th>Email</th>
             <th>Telefone</th>
             <th>Editar</th>
-            <th>Excluir</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +30,6 @@
             <td>ana@gmail.com</td>
             <td>(16)99281-9898</td>
             <td><Button text_button="Editar"/></td>
-            <td><Button text_button="Excluir"/></td>
           </tr>
 
           <tr>
@@ -44,7 +40,6 @@
             <td>ana@gmail.com</td>
             <td>(16)99281-9898</td>
             <td><Button text_button="Editar"/></td>
-            <td><Button text_button="Excluir"/></td>
           </tr>
         </tbody>
       </table>
