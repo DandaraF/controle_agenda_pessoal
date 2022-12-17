@@ -37,11 +37,11 @@
 
 <script>
 
-import Input from "./Input.vue"
-import Picture from "./Picture.vue"
+import Input from "../Input.vue"
+import Picture from "../Picture.vue"
 
 export default {
-  name: 'Form',
+  name: 'FormEdit',
   components:{
     Input,
     Picture

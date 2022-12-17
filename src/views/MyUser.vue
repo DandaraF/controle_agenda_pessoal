@@ -1,17 +1,17 @@
 <template>
   <div class="container-myuser">
-    <Form/>
+    <FormEdit/>
     
   </div>
  </template>
 
 <script>
-import Form from '../components/Form'
+import FormEdit from '../components/form/FormEdit'
 
 export default {
   name: 'MyUser',
   components:{
-    Form
+    FormEdit
   }
 
 }
