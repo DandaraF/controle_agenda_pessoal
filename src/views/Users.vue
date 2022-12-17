@@ -13,7 +13,7 @@
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Data nascimento</th>
+            <th>Data nasc</th>
             <th>Foto</th>
             <th>CPF</th>
             <th>Email</th>
@@ -64,10 +64,8 @@ export default {
 
 <style scoped>
 
-
 h2{
   color: rgb(160, 160, 0);
- 
 }
 
 .table{
@@ -81,7 +79,6 @@ h2{
   flex-wrap: wrap;
   padding:  20px;
   background-color: rgb(240,240,240);
-  
 }
 
 .table_header p{
@@ -104,8 +101,8 @@ table{
 thead th{
   /* position: sticky; */
   /* top:0; */
-  background-color: #f6f9fc;
-  color: #8493a5;
+  background-color: rgb(160, 160, 0);
+  color: #fff;
   font-size: 15px;
 }
 th,td{
@@ -124,18 +121,19 @@ td img{
 }
 
 tr:hover td{
-  color: #0298cf;
+  color: #8ca01bfb;
   cursor: pointer;
-  background-color: #f6f9fc;
+  background-color: #8ca01b09;
 }
 ::placeholder{
-  color:#0298cf;
+  color:#8ca01bd2;
 }
 
 ::-webkit-scrollbar{
   height: 5px;
   width: 5px;
 }
+
 
 
 </style>
