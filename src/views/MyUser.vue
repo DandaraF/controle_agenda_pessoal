@@ -1,29 +1,29 @@
 <template>
   <div class="container-myuser">
-    <Form/>
+    <FormEdit/>
     
   </div>
  </template>
 
 <script>
-import Form from '../components/Form'
+import FormEdit from '../components/form/FormEdit'
 
 export default {
   name: 'MyUser',
   components:{
-    Form
+    FormEdit
   }
 
 }
 </script>
 
 <style scoped>
+
 .container-myuser{
   display: flex;
   align-content: center;
   justify-content: center;
   padding: 40px 20px 0 20px;
-
   align-items: center;
 }
 

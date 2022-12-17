@@ -2,7 +2,6 @@
   <div>
     <Navbar/>
     <router-view/>
-
   </div>
 </template>
 
@@ -26,6 +25,7 @@ export default {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
   .main-container{
