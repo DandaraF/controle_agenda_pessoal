@@ -26,6 +26,7 @@ button{
   cursor: pointer;
   padding: 10px;
   color: #fff;
+  min-width: 60px;
 }
 
  button:nth-child(1){
