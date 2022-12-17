@@ -140,11 +140,6 @@ p{
   background-color: rgba(197, 197, 187, 0.616);
 }
 
-@media (max-width:600px) {
-  .container-myuser{
-    padding-top: 0;
-  }
-}
 
 @media (max-width:689px) {
   .container-form{
@@ -176,4 +171,11 @@ p{
     text-align: center;
   }
 }
+
+/* @media (max-width:600px) {
+  .container-myuser{
+    padding-top: 0;
+  }
+} */
+
 </style>
