@@ -40,6 +40,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "people" */ '../views/People.vue')
   },
   {
+    path: '/pessoas/editar',
+    name: 'person_edit',
+    component: () => import(/* webpackChunkName: "person_edit" */ '../views/person/EditPerson.vue')
+  },
+  {
+    path: '/pessoas/cadastrar',
+    name: 'person_register',
+    component: () => import(/* webpackChunkName: "person_register" */ '../views/person/RegisterPerson.vue')
+  },
+  {
     path: '/contatos',
     name: 'contact',
     component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue')

@@ -4,7 +4,7 @@
 
     <div class="table_header">
       <h2>Usuários</h2>
-      <router-link  to="/usuarios/cadastrar" id="add_user"> + Add usuário</router-link>
+      <router-link  to="/usuarios/cadastrar" id="add-user" > + Add usuário</router-link>
     </div>
 
     <div class="table_section">
@@ -58,7 +58,7 @@ h2{
   color: rgb(160, 160, 0);
 }
 
-#add_user{
+#add-user{
   background-color: rgb(36, 124, 65);
   padding: 8px;
   border-radius: 6px;
