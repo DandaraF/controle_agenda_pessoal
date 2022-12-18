@@ -1,10 +1,10 @@
 <template>
   <div class="container-users">
   <div class="table">
-    
+
     <div class="table_header">
-      <h2>Usuários</h2>     
-      <Button text_button="+ Add Usuário"/>
+      <h2>Usuários</h2>
+      <router-link  to="/usuarios/cadastrar" id="add_user"> + Add usuário</router-link>
     </div>
 
     <div class="table_section">
@@ -56,6 +56,18 @@ export default {
 
 h2{
   color: rgb(160, 160, 0);
+}
+
+#add_user{
+  background-color: rgb(36, 124, 65);
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+}
+
+#add_user:hover{
+  opacity: 0.8;
 }
 
 .table{
