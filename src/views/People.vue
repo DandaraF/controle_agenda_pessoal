@@ -7,7 +7,7 @@
         <Input/>
         <img src="../../public/img/search.png" :alt="Pesquisar" id="search"/>
       </div>
-      <Button text_button="+ Add Usuário"/>
+      <router-link  to="/pessoas/cadastrar" id="add-person"> + Add pessoa</router-link>
 
     </div>
     
@@ -29,9 +29,13 @@
           <tr>
             <td>Ana Ana</td>
             <td>432.090.107-00</td>
-            <td><img src="../../public/img/avatar.png" alt=""></td>
+            <td><img class="photo-user" src="../../public/img/avatar.png" alt=""></td>
             <td class="address">Avenida Alameda das Travessas, nº 111, Edifício Bosque do Cerrado, apartamento 2222 - Bairro dos Barris. CEP: 40000-000</td>
-            <td><Button text_button="Editar"/></td>
+            <td>
+              <router-link  to="/pessoas/editar" id="edit-person" >
+               <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
+              </router-link>
+            </td>
             <td><Button text_button="Excluir"/></td>
           </tr>
           
@@ -39,8 +43,6 @@
       </table>
     </div>
   </div>
-
-    
 
   </div>
  </template>
@@ -60,6 +62,17 @@ export default {
 </script>
 
 <style scoped>
+#add-person{
+  background-color: rgb(36, 124, 65);
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+}
+
+#add-person:hover{
+  opacity: 0.8;
+}
 
 h2{
   color: rgb(160, 160, 0);
@@ -67,7 +80,6 @@ h2{
 
 #search{
   width: 25px;
-
 }
 
 .content-people-header{
@@ -118,9 +130,7 @@ th,td{
   word-break: break-all;
   text-align: center;
 }
-td{
-  min-width: 160px;
-}
+
 
 .address{
   max-width: 350px;
@@ -128,18 +138,18 @@ td{
   height: 100%;
 }
 
-td img{
+.photo-user{
   height: 60px;
   width: 60px;
   object-fit: cover;
   border-radius: 15px;
-  border: 3px solid rgb(160, 160, 0);
+  border: 1px solid rgb(160, 160, 0);
   padding: 2px;
 }
 
 tr:hover td{
   color: #8ca01bfb;
-  cursor: pointer;
+  cursor: context-menu;
   background-color: #8ca01b09;
 }
 ::placeholder{
@@ -150,6 +160,16 @@ tr:hover td{
   height: 5px;
   width: 5px;
 }
+
+
+.icon-edit{
+  width: 25px;
+}
+
+.icon-edit:hover{
+  opacity: 0.7;
+}
+
 
 @media (max-width:600px) {
   .container-seacher{

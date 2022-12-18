@@ -1,11 +1,10 @@
 <template>
   <div class="container-users">
   <div class="table">
+
     <div class="table_header">
       <h2>Usuários</h2>
-        
-      <Button text_button="+ Add Usuário"/>
-
+      <router-link  to="/usuarios/cadastrar" id="add-user" > + Add usuário</router-link>
     </div>
 
     <div class="table_section">
@@ -13,8 +12,7 @@
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Data nasc</th>
-            <th>Foto</th>
+            <th class="birthday">Data nascimento</th>
             <th>CPF</th>
             <th>Email</th>
             <th>Telefone</th>
@@ -25,28 +23,20 @@
           <tr>
             <td>Ana Ana</td>
             <td>23/07/1993</td>
-            <td><img src="../../public/img/avatar.png" alt=""></td>
             <td>432.090.107-00</td>
             <td>ana@gmail.com</td>
             <td>(16)99281-9898</td>
-            <td><Button text_button="Editar"/></td>
-          </tr>
-
-          <tr>
-            <td>Ana Ana</td>
-            <td>23/07/1993</td>
-            <td><img src="../../public/img/avatar.png" alt=""></td>
-            <td>432.090.107-00</td>
-            <td>ana@gmail.com</td>
-            <td>(16)99281-9898</td>
-            <td><Button text_button="Editar"/></td>
+           
+            <td>
+              <router-link  to="/usuarios/editar" id="edit_user" >
+               <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
+              </router-link>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
-    
 
   </div>
  </template>
@@ -68,6 +58,18 @@ h2{
   color: rgb(160, 160, 0);
 }
 
+#add-user{
+  background-color: rgb(36, 124, 65);
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+}
+
+#add_user:hover{
+  opacity: 0.8;
+}
+
 .table{
   width: 100%;
 }
@@ -85,7 +87,6 @@ h2{
   color: #000;
 }
 
-
 .table_section{
   height: 500px;
   overflow: auto;
@@ -93,14 +94,11 @@ h2{
 
 table{
   width: 100%;
-  /* table-layout: fixed; */
   min-width: 900px;
   border-collapse: collapse;
 }
 
 thead th{
-  /* position: sticky; */
-  /* top:0; */
   background-color: rgb(160, 160, 0);
   color: #fff;
   font-size: 15px;
@@ -112,18 +110,10 @@ th,td{
   text-align: center;
 }
 
-td img{
-  height: 60px;
-  width: 60px;
-  object-fit: cover;
-  border-radius: 15px;
-  border: 5px solid #ced0d2;
-}
-
 tr:hover td{
   color: #8ca01bfb;
-  cursor: pointer;
   background-color: #8ca01b09;
+  cursor: context-menu;
 }
 ::placeholder{
   color:#8ca01bd2;
@@ -133,6 +123,14 @@ tr:hover td{
   height: 5px;
   width: 5px;
 }
+.icon-edit{
+  width: 25px;
+}
+
+.icon-edit:hover{
+  opacity: 0.7;
+}
+
 
 
 
