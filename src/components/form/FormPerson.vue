@@ -1,34 +1,36 @@
 <template>
     <div class="container-form-people">
+      <p >{{mensage_info}}</p>
       <h2>{{ text_form }}</h2>
-      <form>
-        <div class="container-image-person">
+      <form @submit="postPerson($event)">
+        <div class="container-image-person" :key="person.id">
           <Picture/>
-          <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" required/>
+          <input type="file"  name="avatar" accept="image/png, image/jpeg" />
           <label for="avatar" class="select-photo">Selecionar foto</label>
         </div>
 
-        <input type="text" name="nome" placeholder="Nome" :value="name" required/>
-        <input type="text" name="cpf" placeholder="CPF" :value="cpf" required/>
+        <input type="text" name="nome" placeholder="Nome" v-model="person.nome" required/>
+        <input type="text" name="cpf" placeholder="CPF" v-model="person.cpf" required/>
         <div class="address">
           <h3>Endereço</h3>
 
-          <input type="text" name="logradouro"   placeholder="Logradouro" :value="phone"  required/>
-          <input type="text" name="number-house" placeholder="Número" :value="phone" required />
-          <input type="text" name="cep" placeholder="CEP" :value="phone" required />
-          <input type="text" name="bairro" placeholder="Bairro" :value="phone" required/>
-          <input type="text" name="city" placeholder="Cidade" :value="phone" required/>
-          <input type="text" name="city" placeholder="Estado: SP" :value="phone" maxlength="2" class="acronym" required/>
-          <input type="text" name="country" placeholder="País: BR" :value="phone" maxlength="2" class="acronym" required/>
+          <input type="text" name="logradouro"   placeholder="Logradouro" v-model="person.endereco.logradouro"  required/>
+          <input type="text" name="number-house" placeholder="Número" v-model="person.endereco.numero" required />
+          <input type="text" name="cep" placeholder="CEP" v-model="person.endereco.cep" required />
+          <input type="text" name="bairro" placeholder="Bairro" v-model="person.endereco.bairro" required/>
+          <input type="text" name="city" placeholder="Cidade" v-model="person.endereco.cidade" required/>
+          <input type="text" name="city" placeholder="Estado: SP" v-model="person.endereco.estado" maxlength="2" class="acronym" required/>
+          <input type="text" name="country" placeholder="País: BR" v-model="person.endereco.pais" maxlength="2" class="acronym" required/>
         </div>
 
-        <input type="button" :value="text_btn" :id="id_btn" />
+        <input type="submit" :value="text_btn"  />
       </form>
     </div>
   </template>
   
 <script>
 import Picture  from "../Picture.vue"
+import axios from 'axios'
 
 export default {
   name: 'FormUser',
@@ -36,24 +38,74 @@ export default {
     Picture
   },
   props:{
+    "mensage_info": String,
     "text_form": String,
-    "name": String,
-    "cpf": Number,
+    "text_btn": String
+  },
+  data(){
+    return{
+      mensage_info:"",
+      person: {
+        nome:'',
+        cpf:'',
+        endereco:{
+          logradouro:'',
+          numero:0,
+          cep:'',
+          bairro:'',
+          cidade:'',
+          estado:'',
+          pais:''
+        }
+      }
 
+    }
+  },
+  methods:{
+    getPerson(id){
+      const response = axios.get("/pessoa/buscar/" + id)
+      .then((response)=>{
+        this.person=response.data.object
+      })
+    },
+    postPerson(e){
+      e.preventDefault()
+      const data ={"cpf": this.person.cpf , 
+                  "nome": this.person.nome,
+                  "endereco":{
+                    "logradouro": this.person.endereco.logradouro,
+                    "numero": this.person.endereco.numero,
+                    "cep": this.person.endereco.cep,
+                    "bairro": this.person.endereco.bairro,
+                    "cidade": this.person.endereco.cidade,
+                    "estado":this.person.endereco.estado,
+                    "pais": this.person.endereco.pais
+                  }}
 
+      const response = axios.post("/pessoa/salvar", data)
+      .then((response)=>{
+        alert("Requisição efetuada com sucesso!")
+        this.$router.push({name: "people"})
+      })
+      .catch((error)=>{
+        alert("Solicitação não efetuada ", error)
+      })
 
+    }
+  },
 
-    "phone": Number,
-    "username": String,
-    "password": String,
-    "text_btn": String,
-    "id_btn": String
+  mounted(){
+    this.getPerson(this.$route.query.id)
   }
 }
 
 </script>
   
 <style scoped>
+
+.mensage_info{
+  display: none;
+}
 .acronym{
   text-transform: uppercase;
 }

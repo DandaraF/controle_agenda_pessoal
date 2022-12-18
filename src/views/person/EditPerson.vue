@@ -1,6 +1,9 @@
 <template>
   <div>
-    <FormPerson text_form="Editar pessoa" text_btn="Editar"/>
+    <FormPerson 
+    text_form="Editar pessoa" 
+    text_btn="Editar" 
+    />
   </div>
   
 </template>
@@ -12,7 +15,8 @@ export default {
   name: 'EditPerson',
   components:{
     FormPerson
-  }
+  },
+  props:['person']
 }
 
 </script>
