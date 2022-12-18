@@ -1,5 +1,6 @@
 <template>
   <div class="container-users">
+    <Navbar/>
   <div class="table">
 
     <div class="table_header">
@@ -43,10 +44,16 @@
 
 <script>
 import Button from '../components/Button'
+import Navbar from '../components/Navbar'
+
 export default {
   name: 'Users',
   components:{
-    Button
+    Button,
+    Navbar
+  },
+  props:{
+    user: String
   }
 
 }

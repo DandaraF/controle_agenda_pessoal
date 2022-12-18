@@ -1,4 +1,6 @@
 <template>
+  <Navbar/>
+
   <div class="home">
     <div class="container-home">
       <div class="content-home">
@@ -14,6 +16,7 @@
 <script>
 import Navbar from '../components/Navbar'
 import Picture from '../components/Picture'
+
 
 export default{
   components:{

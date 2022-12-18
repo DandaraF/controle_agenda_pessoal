@@ -11,12 +11,12 @@
           <!-- input -->
           <div class="content-input">
               <label > Usuário </label>
-              <input type="text" class="input-text" v-model="username" >
+              <input type="text" class="input-text" v-model="username" required >
           </div>
 
           <div class="content-input">
               <label > Senha </label>
-              <input type="text" class="input-text" v-model="password" >
+              <input type="password" class="input-text" v-model="password" required >
           </div>
 
           <!--  -->
@@ -65,13 +65,23 @@ export default {
       login(e){
         e.preventDefault();
         const data = {"password": this.password, "username": this.username}
-        const result = axios.post("https://metawaydemo.vps-kinghost.net:8485/api/auth/login", data)
-        .then((result) =>{
-          console.log('result', result.data['id'])
+        
+        const response = axios.post("/auth/login", data)
+        .then((response) =>{
+          let accessToken=response.data['accessToken']
+          let user=response.data['tipos'][0]
+
+
+          localStorage.setItem('token', accessToken)
+          localStorage.setItem('user', user)
+
+          this.$router.push('/home')
+
         })
-        .catch(()=>{
+        .catch((error)=>{
           this.msg = "Usuário ou senha inválido!"
-          setTimeout(() => this.msg = "", 2000)
+          console.log(error);
+          setTimeout(() => this.msg = "", 3000)
 
         })
       }
@@ -93,7 +103,8 @@ export default {
   height: 100vh;
   align-content: center;
   background-color: #354152;
-  padding: 10%;
+  padding: 30%;
+
 }
 .container-form{
   display: flex;
@@ -154,7 +165,7 @@ h2{
 .content-input{
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 260px;
   max-width: 400px;
   font-size: 1rem;
   text-transform: capitalize;

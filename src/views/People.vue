@@ -1,6 +1,6 @@
 <template>
   <div class="container-people">
-
+    <Navbar/>
     <div class="content-people-header">
       <h2>Pessoas</h2>
       <div class="container-seacher">
@@ -50,12 +50,14 @@
 <script>
 import Button from '../components/Button'
 import Input from '../components/Input'
+import Navbar from '../components/Navbar'
 
 export default {
   name: 'People',
   components:{
     Button,
-    Input
+    Input,
+    Navbar
   }
 
 }

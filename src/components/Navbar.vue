@@ -14,15 +14,42 @@
           </label>
        </div>
         <div class="nav-links">
-          <router-link  to="/home" id="home"> Home</router-link>
-          <router-link  to="/meu_cadastro" id="myuser">Meu Cadastro</router-link>
-          <router-link  to="/usuarios" id="users">Usuários</router-link>
-          <router-link  to="/pessoas" id="users">Pessoas</router-link>
-          <router-link  to="/contatos" id="users">Contatos</router-link>
-          <router-link  to="#" id="users">Logout</router-link>
+          <a href="/home"> Home</a>
+          <a href="/meu_cadastro" >Meu Cadastro</a>
+          <a href="/usuarios"  v-if="user=='ROLE_ADMIN'" >Usuários</a>
+          <a href="/pessoas" >Pessoas</a>
+          <a href="/contatos" >Contatos</a>
+          <a href="/" @click="logout">Logout</a>
         </div>
     </div>
 </template>
+
+<script>
+
+export default{
+  props:{
+    user: String
+    
+  },
+  data(){
+    return{
+      user: null
+    }
+  },
+  methods:{
+    logout(){
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.$$router.push('/');
+    }
+  },
+  mounted(){
+    this.user = localStorage.getItem('user')
+  }
+
+}
+
+</script>
 
 <style scoped>
 span{

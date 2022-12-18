@@ -1,6 +1,6 @@
 <template>
   <div class="container-contacts">
-
+    <Navbar/>
     <div class="content-contacts-header">
       <h2>Contatos</h2>
       <div class="container-seacher">
@@ -54,12 +54,14 @@
 <script>
 import Button from '../components/Button'
 import Input from '../components/Input'
+import Navbar from '../components/Navbar'
 
 export default {
   name: 'Contacts',
   components:{
     Button,
-    Input
+    Input,
+    Navbar
   }
 
 }
