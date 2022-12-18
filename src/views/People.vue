@@ -11,8 +11,12 @@
 
     </div>
   
-  <div class="table">
+    <div class="message">
+      <Message :msg="msg" v-show="msg"/>
 
+    </div>
+
+  <div class="table">
     <div class="table_section">
       <table>
         <thead>
@@ -49,7 +53,7 @@
                <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
               </router-link>
             </td>
-            <td><Button text_button="Excluir"/></td>
+            <td><Button text_button="Excluir" @click="deletePerson(person.id, person.nome)"/></td>
           </tr>
           
         </tbody>
@@ -65,18 +69,20 @@ import axios from 'axios'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Navbar from '../components/Navbar'
+import Message from '../components/Message'
 
 export default {
   name: 'People',
   components:{
     Button,
     Input,
-    Navbar
+    Navbar,
+    Message
   },
   data(){
     return {
       people: [],
-      url: null
+      msg: null
     }
   },
   methods:{
@@ -94,48 +100,33 @@ export default {
     onFileSelect(event){
       console.log(event)
     },
-    // getPhotos(people){
-    //   for (const person of people){
-    //     const response = axios.get("foto/download/" + person.id)
-
-    //     .then((response) =>{
-    //       console.log('response', response.data)
-    //       this.url = response.data
-          
-    //     })
-    //     .catch((error) =>{
-    //       console.log('ERRO ',error)
-    //     })
-
-        
-    //   }
-    //   }
     getPhoto(id){
         const response = axios.get("foto/download/" + id)
         .then((response) =>{
           console.log(response)
-
           return response
-          
         })
         .catch((error) =>{
           console.log('ERRO ',error)
         })
- }
+    },
+    deletePerson(id, person){
+      const response = axios.delete("pessoa/remover/" + id)
+        .then((response) =>{
+          this.msg = "Dado deletado com sucesso!"
+          this.setMessage()
+        })
+        .catch(() =>{
+          this.msg = `Não foi possivel remover os dados de ${person}.`
+          this.setMessage()
+        })
+        
+    },
+    setMessage(){
+      setTimeout(() => this.msg = "", 2500)
+    }
 
 
-
-        // response =  axios.post("/foto/download/" + id)
-     
-      // .then((response)=>{
-      //   console.log('entrou getphoto', response.data)
-
-      // })
-      // .catch((error)=>{
-      //   console.log('---', response.data)
-      //   console.log("error", error)
-      // })
-  // }
 
   },
   mounted(){
@@ -145,6 +136,13 @@ export default {
 </script>
 
 <style scoped>
+
+.message{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #add-person{
   background-color: rgb(36, 124, 65);
   padding: 8px;
