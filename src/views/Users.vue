@@ -108,8 +108,14 @@ th,td{
   padding: 10px 20px;
   word-break: break-all;
   text-align: center;
+  min-width: 100px;
 }
 
+
+.birthday{
+  min-width: 170px;
+
+}
 tr:hover td{
   color: #8ca01bfb;
   background-color: #8ca01b09;
