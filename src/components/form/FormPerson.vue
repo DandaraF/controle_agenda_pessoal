@@ -5,8 +5,6 @@
       <form @submit="postPerson($event)">
         <div class="container-image-person" :key="person.id">
           <Picture/>
-          <input type="file"  name="avatar" accept="image/png, image/jpeg" />
-          <label for="avatar" class="select-photo">Selecionar foto</label>
         </div>
 
         <input type="text" name="nome" placeholder="Nome" v-model="person.nome" required/>

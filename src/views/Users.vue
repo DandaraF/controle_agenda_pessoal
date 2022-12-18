@@ -1,6 +1,9 @@
 <template>
-  <div class="container-users">
+  <div class="container-usuarios">
     <Navbar/>
+    <div class="message">
+        <Message :msg="msg" v-show="msg"/>
+      </div>
   <div class="table">
 
     <div class="table_header">
@@ -21,12 +24,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Ana Ana</td>
-            <td>23/07/1993</td>
-            <td>432.090.107-00</td>
-            <td>ana@gmail.com</td>
-            <td>(16)99281-9898</td>
+          <tr v-for="usuario in usuarios" :key="usuario.id">
+            <td>{{usuario.nome}}</td>
+            <td>{{usuario.dataNascimento}}</td>
+            <td>{{usuario.cpf}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.telefone}}</td>
            
             <td>
               <router-link  to="/usuarios/editar" id="edit_user" >
@@ -45,21 +48,44 @@
 <script>
 import Button from '../components/Button'
 import Navbar from '../components/Navbar'
+import Message from '../components/Message'
+import axios from 'axios'
 
 export default {
-  name: 'Users',
+  name: 'usuarios',
   components:{
     Button,
-    Navbar
+    Navbar,
+    Message
   },
-  props:{
-    user: String
+  data(){
+    return {
+      usuarios: [],
+      msg: null
+    }
+  },
+  methods:{
+    getusuarios(){
+      const response = axios.post("/usuario/pesquisar", {"termo":''})
+      .then((response)=>{
+        this.usuarios = response.data;
+      })
+    }
+    
+  },
+  mounted(){
+    this.getusuarios()
   }
-
 }
 </script>
 
 <style scoped>
+
+.message{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 h2{
   color: rgb(160, 160, 0);

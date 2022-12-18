@@ -2,14 +2,14 @@
     <div class="container-form-user">
       <h2>{{ text_form }}</h2>
       <form>
-        <input type="text" name="name" placeholder="Nome" :value="name"/>
-        <input type="date" name="birth-date" placeholder="Data nascimento" :value="birth-date"/>
-        <input type="text" name="cpf" placeholder="CPF" :value="cpf"/>
-        <input type="email" name="email" placeholder="Email" :value="email" />
-        <input type="text" name="phone" placeholder="Telefone" :value="phone"/>
-        <input type="text" name="username" placeholder="Username" :value="username" />
-        <input type="password" name="password" placeholder="Senha" :value="password"/>
-        <input type="button" :value="text_btn" :id="id_btn"/>
+        <input type="text" placeholder="Nome" v-model="user.nome"/>
+        <input type="date" placeholder="Data nascimento" v-model="user.dataNascimento"/>
+        <input type="text" placeholder="CPF" v-model="user.cpf"/>
+        <input type="email" placeholder="Email" v-model="user.email" />
+        <input type="text" placeholder="Telefone" v-model="user.phone"/>
+        <input type="text" placeholder="Username" v-model="user.username" />
+        <input type="password" placeholder="Senha" v-model="user.password"/>
+        <input type="button" :value="text_btn" />
       </form>
     </div>
   </template>
@@ -18,16 +18,59 @@
   export default {
     name: 'FormUser',
     props:{
-      "text_form": String,
-      "name": String,
-      "birth-date": Date,
-      "cpf": Number,
-      "email": String,
-      "phone": Number,
-      "username": String,
-      "password": String,
-      "text_btn": String,
-      "id_btn": String
+      "text_form": String
+     
+    },
+    data(){
+      return{
+        user:{
+          nome:'',
+          dataNascimento: '',
+          cpf: '',
+          email: '',
+          telefone:'',
+          username:'',
+          password:''
+        }
+        
+
+      }
+    },
+    methods:{ 
+      getUser(id){
+        const response = axios.get("usuario/buscar/" + id)
+        .then((response) =>{
+          return response
+        })
+        .catch((error) =>{
+          console.log('ERRO ',error)
+        })
+      },
+      postUser(e){
+      e.preventDefault()
+      const data ={"tipos":["ROLE_USER"],
+                   "usuario":{
+                    "cpf": this.user.cpf,
+                    "dataNascimento": this.user.dataNascimento,
+                    "email": this.user.email,
+                    "nome": this.user.nome,
+                    "password": this.user.password,
+                    "telefone":this.user.telefone,
+                    "username": this.user.username
+                     }}
+
+      const response = axios.post("/usuario/salvar", data)
+      .then((response)=>{
+        console.log(response)
+        alert("Requisição efetuada com sucesso!")
+        this.$router.push({name: "people"})
+      })
+      .catch((error)=>{
+        alert("Erro ao tentar fazer a requisição", error)
+      })
+
+    }
+
     }
   }
   

@@ -33,13 +33,11 @@
           <tr v-for="person in people" :key="person.id" >
             <td>{{ person.nome }}</td>
             <td>{{ person.cpf }}</td>
-            <td><img class="photo-user" :src="src_image" alt="foto"></td>
-            <!-- <td><img class="photo-user" v-bind:src="getPhoto(person.id)" alt="foto"></td> -->
-            <!-- <td><img class="photo-user" v-bind:src="'data:image/jpeg;base64,'+ getPhoto(person.id)" alt="foto"></td> -->
+            <td><img class="photo-user" src="../../public/img/avatar.png" alt="foto"></td>
             
             {{src}}
             
-            <td class="address">
+            <td class="address" >
               {{ person.endereco.logradouro }}, 
               {{ person.endereco.numero }},  
               {{ person.endereco.bairro }} -
@@ -90,7 +88,6 @@ export default {
       const response = axios.post("/pessoa/pesquisar", {"nome":''})
       .then((response)=>{
         this.people = response.data;
-        // this.getPhotos(response.data)
         console.log("DATA", response.data)
       })
       .catch((error)=>{
@@ -103,11 +100,7 @@ export default {
     getPhoto(id){
         const response = axios.get("foto/download/" + id)
         .then((response) =>{
-          console.log(response)
           return response
-        })
-        .catch((error) =>{
-          console.log('ERRO ',error)
         })
     },
     deletePerson(id, person){
@@ -115,6 +108,7 @@ export default {
         .then((response) =>{
           this.msg = "Dado deletado com sucesso!"
           this.setMessage()
+          this.getPeople()
         })
         .catch(() =>{
           this.msg = `Não foi possivel remover os dados de ${person}.`
@@ -193,14 +187,11 @@ h2{
 
 table{
   width: 100%;
-  /* table-layout: fixed; */
   min-width: 900px;
   border-collapse: collapse;
 }
 
 thead th{
-  /* position: sticky; */
-  /* top:0; */
   background-color: rgb(160, 160, 0);
   color: #fff;
   font-size: 15px;
@@ -210,6 +201,7 @@ th,td{
   padding: 10px 20px;
   word-break: break-all;
   text-align: center;
+  min-width: 100px;
 }
 
 
