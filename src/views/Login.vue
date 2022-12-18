@@ -3,18 +3,20 @@
 
       <!-- input -->
 
-      <form class='login-form'>
+      <form class='login-form' @submit="login">
         <div class="content-form">
+
           <h2>Login</h2>
+
           <!-- input -->
           <div class="content-input">
               <label > Usuário </label>
-              <input type="text" class="input-text" :value="value_input" >
+              <input type="text" class="input-text" v-model="username" >
           </div>
 
           <div class="content-input">
               <label > Senha </label>
-              <input type="text" class="input-text" :value="value_input" >
+              <input type="text" class="input-text" v-model="password" >
           </div>
 
           <!--  -->
@@ -25,8 +27,11 @@
           </div>
 
 
+
           <!-- button -->
-          <button id="btn-login">Logar</button>
+          <input id="btn-login" type="submit" value="Logar"/>
+
+          <Message :msg="msg" v-show="msg"/>
 
 
         </div>
@@ -40,15 +45,43 @@
 <script>
 
 import Input from '../components/Input.vue'
+import axios from 'axios'
+import Message from '../components/Message'
 
 export default {
   name: 'Login',
   components:{
-    Input
+    Input,
+    Message
   },
+  data(){
+    return{
+      username: '',
+      password: '',
+      msg: null
+    }
+  },
+    methods:{
+      login(e){
+        e.preventDefault();
+        const data = {"password": this.password, "username": this.username}
+        const result = axios.post("https://metawaydemo.vps-kinghost.net:8485/api/auth/login", data)
+        .then((result) =>{
+          console.log('result', result.data['id'])
+        })
+        .catch(()=>{
+          this.msg = "Usuário ou senha inválido!"
+          setTimeout(() => this.msg = "", 2000)
+
+        })
+      }
+
+    },
 
 
-}
+  }
+
+
 </script>
 
 <style scoped>
@@ -86,10 +119,9 @@ h2{
 .login-form{
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  height: 300px;
+  height: 310px;
   background-color: #a7b6ca1f;
-  min-width: 320px;
+  min-width: 300px;
   max-width: 450px;
   padding: 20px;
 }

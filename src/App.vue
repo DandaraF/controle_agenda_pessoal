@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar/>
+    <Navbar v-show="logged"/>
     <router-view/>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   name: 'App',
   components:{
     Navbar
+  },
+  data(){
+    return{
+      logged: false
+    }
   }
 
 }
