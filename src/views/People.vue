@@ -10,7 +10,7 @@
       <router-link  to="/pessoas/cadastrar" id="add-person"> + Add pessoa</router-link>
 
     </div>
-    
+  
   <div class="table">
 
     <div class="table_section">
@@ -26,11 +26,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Ana Ana</td>
-            <td>432.090.107-00</td>
-            <td><img class="photo-user" src="../../public/img/avatar.png" alt=""></td>
-            <td class="address">Avenida Alameda das Travessas, nº 111, Edifício Bosque do Cerrado, apartamento 2222 - Bairro dos Barris. CEP: 40000-000</td>
+          <tr v-for="person in people" :key="person.id" >
+            <td>{{ person.nome }}</td>
+            <td>{{ person.cpf }}</td>
+            <td><img class="photo-user" :src="src_image" alt="foto"></td>
+            <!-- <td><img class="photo-user" v-bind:src="getPhoto(person.id)" alt="foto"></td> -->
+            <!-- <td><img class="photo-user" v-bind:src="'data:image/jpeg;base64,'+ getPhoto(person.id)" alt="foto"></td> -->
+            
+            {{src}}
+            
+            <td class="address">
+              {{ person.endereco.logradouro }}, 
+              {{ person.endereco.numero }},  
+              {{ person.endereco.bairro }} -
+               {{person.endereco.cidade}}-
+                {{person.endereco.estado }},
+                {{person.endereco.pais}}. 
+              CEP: {{person.endereco.cep}}
+            </td>
             <td>
               <router-link  to="/pessoas/editar" id="edit-person" >
                <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
@@ -48,6 +61,7 @@
  </template>
 
 <script>
+import axios from 'axios'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Navbar from '../components/Navbar'
@@ -58,8 +72,75 @@ export default {
     Button,
     Input,
     Navbar
-  }
+  },
+  data(){
+    return {
+      people: [],
+      url: null
+    }
+  },
+  methods:{
+    getPeople(){
+      const response = axios.post("/pessoa/pesquisar", {"nome":''})
+      .then((response)=>{
+        this.people = response.data;
+        // this.getPhotos(response.data)
+        console.log("DATA", response.data)
+      })
+      .catch((error)=>{
+        console.log("error", error)
+      })
+    },
+    onFileSelect(event){
+      console.log(event)
+    },
+    // getPhotos(people){
+    //   for (const person of people){
+    //     const response = axios.get("foto/download/" + person.id)
 
+    //     .then((response) =>{
+    //       console.log('response', response.data)
+    //       this.url = response.data
+          
+    //     })
+    //     .catch((error) =>{
+    //       console.log('ERRO ',error)
+    //     })
+
+        
+    //   }
+    //   }
+    getPhoto(id){
+        const response = axios.get("foto/download/" + id)
+        .then((response) =>{
+          console.log(response)
+
+          return response
+          
+        })
+        .catch((error) =>{
+          console.log('ERRO ',error)
+        })
+ }
+
+
+
+        // response =  axios.post("/foto/download/" + id)
+     
+      // .then((response)=>{
+      //   console.log('entrou getphoto', response.data)
+
+      // })
+      // .catch((error)=>{
+      //   console.log('---', response.data)
+      //   console.log("error", error)
+      // })
+  // }
+
+  },
+  mounted(){
+    this.getPeople()
+  }
 }
 </script>
 

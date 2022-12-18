@@ -103,8 +103,7 @@ export default {
   height: 100vh;
   align-content: center;
   background-color: #354152;
-  padding: 30%;
-
+  padding-top: 10%;
 }
 .container-form{
   display: flex;
@@ -185,5 +184,9 @@ h2{
   color: #fff;
   border-left: 3px solid rgb(160, 160, 0);
 }
-
+@media (max-width:600px) {
+  #container-admin{
+    padding-top: 30%;
+  }
+}
 </style>
