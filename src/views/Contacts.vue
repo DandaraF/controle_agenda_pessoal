@@ -1,76 +1,121 @@
 <template>
   <div class="container-contacts">
-    <Navbar/>
+    <Navbar />
     <div class="content-contacts-header">
       <h2>Contatos</h2>
       <div class="container-seacher">
-        <Input/>
-        <img src="../../public/img/search.png" :alt="Pesquisar" id="search"/>
+        <Input />
+        <img src="../../public/img/search.png" :alt="Pesquisar" id="search" />
       </div>
-      <router-link  to="/contatos/cadastrar" id="add-contact"> + Add contato</router-link>
-
+      <router-link to="/contatos/cadastrar" id="add-contact">
+        + Add contato</router-link
+      >
     </div>
-    
-  <div class="table">
 
-    <div class="table_section">
-      <table>
-        <thead>
-          <tr>
-            <th>Nome contato</th>
-            <th>CPF</th>
-            <th>Foto</th>
-            <th>Endereço</th>
-            <th>Email</th>
-            <th>telefone</th>
-            <th>Editar</th>
-            <th>Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Stella Kamilly Freita</td>
-            <td>432.090.107-00</td>
-            <td><img class="photo-user" src="../../public/img/avatar.png" alt=""></td>
-            <td class="address">Avenida Alameda das Travessas, nº 111, Edifício Bosque do Cerrado, apartamento 2222 - Bairro dos Barris. CEP: 40000-000</td>
-            <td>sthela@gmail.com</td>
-            <td>(81) 3953-9681</td>
-            <td>
-              <router-link  to="/contatos/editar" id="edit-contact" >
-               <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
-              </router-link>
-            </td>
-            <td><img class="icon-delete" src="../../public/img/delete.png" alt="Editar"></td>
-          </tr>
-          
-        </tbody>
-      </table>
+    <div class="message">
+      <Message :msg="msg" v-show="msg" />
+    </div>
+    <div class="table">
+      <div class="table_section">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome contato</th>
+              <th>CPF</th>
+              <th>Foto</th>
+              <th>Endereço</th>
+              <th>Email</th>
+              <th>telefone</th>
+              <th>Editar</th>
+              <th>Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="contact in contacts" :key="contact.pessoa.id">
+              <td>{{ contact.pessoa.nome }}</td>
+              <td>{{ contact.pessoa.cpf }}</td>
+              <td>
+                <img
+                  class="photo-user"
+                  src="../../public/img/avatar.png"
+                  alt=""
+                />
+              </td>
+              <td class="address">
+                {{ contact.pessoa.endereco.logradouro }}, {{ contact.pessoa.endereco.numero }},
+                {{ contact.pessoa.endereco.bairro }} - {{ contact.pessoa.endereco.cidade }}-
+                {{ contact.pessoa.endereco.estado }}, {{ contact.pessoa.endereco.pais }}. CEP:
+                {{ contact.pessoa.endereco.cep }}
+              </td>
+              <td>{{ contact.email }}</td>
+              <td>{{ contact. telefone }}</td>
+              <td>
+                <router-link 
+                  :to="{ path: '/contatos/editar', query: { id: contact.id } }" id="edit-contact">
+                  <img
+                    class="icon-edit"
+                    src="../../public/img/edit.png"
+                    alt="Editar"
+                  />
+                </router-link>
+              </td>
+              <td>
+                <img
+                @click="deleteContact(contact.id, contact.nome)"
+                  class="icon-delete"
+                  src="../../public/img/delete.png"
+                  alt="Editar"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
-  </div>
- </template>
+</template>
 
 <script>
-import Button from '../components/Button'
-import Input from '../components/Input'
-import Navbar from '../components/Navbar'
+import Button from "../components/Button";
+import Input from "../components/Input";
+import Navbar from "../components/Navbar";
+import axios from "axios";
+import Message from "../components/Message";
 
 export default {
-  name: 'Contacts',
-  components:{
+  name: "Contacts",
+  components: {
     Button,
     Input,
-    Navbar
-  }
-
-}
+    Navbar,
+    Message
+  },
+  data() {
+    return {
+      contacts: [],
+      msg: null,
+    };
+  },
+  methods: {
+    getContacts() {
+      const response = axios.post("/contato/pesquisar", { termo: "" })
+        .then((response) => {
+          this.contacts = response.data;
+          console.log( 'cont', this.contacts)
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+  },
+  mounted() {
+    this.getContacts();
+  },
+};
 </script>
 
 <style scoped>
-
-
-#add-contact{
+#add-contact {
   background-color: rgb(36, 124, 65);
   padding: 8px;
   border-radius: 6px;
@@ -78,72 +123,70 @@ export default {
   color: #fff;
 }
 
-#add-contact:hover{
+#add-contact:hover {
   opacity: 0.8;
 }
 
-h2{
+h2 {
   color: rgb(105, 105, 10);
 }
 
-#search{
+#search {
   width: 25px;
 }
 
-.content-contacts-header{
+.content-contacts-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding:  20px;
-  background-color: rgb(240,240,240);
+  padding: 20px;
+  background-color: rgb(240, 240, 240);
 }
 
-.content-contacts-headerr p{
+.content-contacts-headerr p {
   color: #000;
 }
 
-.container-seacher{
+.container-seacher {
   display: flex;
   gap: 6px;
   align-items: center;
-
 }
 
-.table{
+.table {
   width: 100%;
 }
 
-.table_section{
-  height: 500px;
+.table_section {
   overflow: auto;
 }
 
-table{
+table {
   width: 100%;
   min-width: 900px;
   border-collapse: collapse;
 }
 
-thead th{
+thead th {
   background-color: rgb(160, 160, 0);
   color: #fff;
   font-size: 15px;
 }
-th,td{
+th,
+td {
   border-bottom: 1px solid #dddddd;
   padding: 10px 20px;
   text-align: center;
 }
 
-
-.address{
+.address {
   max-width: 350px;
   min-width: 300px;
   height: 100%;
 }
 
-.photo-user{
+.photo-user {
   height: 60px;
   width: 60px;
   object-fit: cover;
@@ -152,52 +195,47 @@ th,td{
   padding: 2px;
 }
 
-tr:hover td{
+tr:hover td {
   color: #8ca01bfb;
   cursor: context-menu;
   background-color: #8ca01b09;
 }
-::placeholder{
-  color:#8ca01bd2;
+::placeholder {
+  color: #8ca01bd2;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   height: 5px;
   width: 5px;
 }
 
-
-.icon-edit{
+.icon-edit {
   width: 25px;
 }
 
-.icon-edit:hover{
+.icon-edit:hover {
   opacity: 0.7;
 }
 
-.icon-delete{
+.icon-delete {
   width: 25px;
 }
 
-.icon-delete:hover{
+.icon-delete:hover {
   opacity: 0.7;
 }
 
-
-@media (max-width:600px) {
-  .container-seacher{
+@media (max-width: 600px) {
+  .container-seacher {
     margin: 10px 0 20px;
   }
-  .content-contacts-header{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  .content-contacts-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-tbody{
-  font-size: 14px;
+  tbody {
+    font-size: 14px;
+  }
 }
-
-}
-
-
 </style>
