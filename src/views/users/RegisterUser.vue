@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar/>
+    <Navbar />
     <FormUser text_form="Cadastrar Usuário" text_btn="Cadastrar" />
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
   name: "RegisterUser",
   components: {
     FormUser,
-    Navbar
+    Navbar,
   },
 };
 </script>

@@ -1,21 +1,19 @@
 <template>
   <div>
-    <Navbar/>
-    <FormContact text_form="Editar contato" text_btn="Editar"/>
+    <Navbar />
+    <FormContact text_form="Editar contato" text_btn="Editar" />
   </div>
-  
 </template>
 
 <script>
-import FormContact from './../../components/form/FormContact.vue'
-import Navbar from './../../components/Navbar.vue'
+import FormContact from "./../../components/form/FormContact.vue";
+import Navbar from "./../../components/Navbar.vue";
 
 export default {
-  name: 'EditContact',
-  components:{
+  name: "EditContact",
+  components: {
     FormContact,
-    Navbar
-  }
-}
-
+    Navbar,
+  },
+};
 </script>

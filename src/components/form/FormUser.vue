@@ -3,20 +3,50 @@
     <h2>{{ text_form }}</h2>
     <form @submit="postUser($event)">
       <div class="message">
-        <Message :msg="msg" v-show="msg"/>
+        <Message :msg="msg" v-show="msg" />
       </div>
-      <input type="text" placeholder="Nome" v-model="data_user.usuario.nome" required />
+      <input
+        type="text"
+        placeholder="Nome"
+        v-model="data_user.usuario.nome"
+        required
+      />
       <input
         type="date"
         placeholder="Data nascimento"
-        v-model="data_user.usuario.dataNascimento" 
+        v-model="data_user.usuario.dataNascimento"
         required
       />
-      <input type="text" placeholder="CPF" v-model="data_user.usuario.cpf" required />
-      <input type="email" placeholder="Email" v-model="data_user.usuario.email" required />
-      <input type="text" placeholder="Telefone" v-model="data_user.usuario.telefone" required />
-      <input type="text" placeholder="Username" v-model="data_user.usuario.username" required />
-      <input type="password" placeholder="Senha" v-model="data_user.usuario.password" required />
+      <input
+        type="text"
+        placeholder="CPF"
+        v-model="data_user.usuario.cpf"
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        v-model="data_user.usuario.email"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Telefone"
+        v-model="data_user.usuario.telefone"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Username"
+        v-model="data_user.usuario.username"
+        required
+      />
+      <input
+        type="password"
+        placeholder="Senha"
+        v-model="data_user.usuario.password"
+        required
+      />
       <input type="submit" :value="text_btn" />
     </form>
   </div>
@@ -24,57 +54,54 @@
   
 <script>
 import axios from "axios";
-import Message from "../../components/Message.vue"
-
+import Message from "../../components/Message.vue";
 
 export default {
   name: "FormUser",
-  components:{
-    Message
+  components: {
+    Message,
   },
   props: {
     text_form: String,
-    text_btn: String
+    text_btn: String,
   },
   data() {
     return {
       msg: null,
-      id:0,
+      id: 0,
       data_user: {
-        tipos:[],
-        usuario:{
+        tipos: [],
+        usuario: {
           nome: "",
           dataNascimento: "",
           cpf: "",
           email: "",
           telefone: "",
           username: "",
-          password: ""
-        }
-       
+          password: "",
+        },
       },
     };
   },
   methods: {
-    getUser(id){
-      const response = axios.get("/usuario/buscar/" + id)
-      .then((response)=>{
-        this.data_user=response.data.object
-      })
+    getUser(id) {
+      const response = axios.get("/usuario/buscar/" + id).then((response) => {
+        this.data_user = response.data.object;
+      });
     },
     postUser(e) {
       e.preventDefault();
       const data = {
-        "tipos": ['ROLE_ADMIN'],
-        "usuario": {
-          "cpf": this.data_user.usuario.cpf,
-          "dataNascimento": this.data_user.usuario.dataNascimento,
-          "email": this.data_user.usuario.email,
-          "nome": this.data_user.usuario.nome,
-          "password": this.data_user.usuario.password,
-          "telefone": this.data_user.usuario.telefone,
-          "username": this.data_user.usuario.username,
-        }
+        tipos: ["ROLE_ADMIN"],
+        usuario: {
+          cpf: this.data_user.usuario.cpf,
+          dataNascimento: this.data_user.usuario.dataNascimento,
+          email: this.data_user.usuario.email,
+          nome: this.data_user.usuario.nome,
+          password: this.data_user.usuario.password,
+          telefone: this.data_user.usuario.telefone,
+          username: this.data_user.usuario.username,
+        },
       };
       const response = axios
         .post("/usuario/salvar", data)
@@ -83,15 +110,15 @@ export default {
           this.$router.push({ name: "users" });
         })
         .catch((error) => {
-          this.msg = "Não foi possivel alterar os dados!"
+          this.msg = "Não foi possivel alterar os dados!";
         });
     },
   },
-  mounted(){
-    const id =localStorage.getItem('id')
-    this.getUser(id)
-    this.id = id
-  }
+  mounted() {
+    const id = localStorage.getItem("id");
+    this.getUser(id);
+    this.id = id;
+  },
 };
 </script>
 

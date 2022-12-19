@@ -42,16 +42,24 @@
                 />
               </td>
               <td class="address">
-                {{ contact.pessoa.endereco.logradouro }}, {{ contact.pessoa.endereco.numero }},
-                {{ contact.pessoa.endereco.bairro }} - {{ contact.pessoa.endereco.cidade }}-
-                {{ contact.pessoa.endereco.estado }}, {{ contact.pessoa.endereco.pais }}. CEP:
+                {{ contact.pessoa.endereco.logradouro }},
+                {{ contact.pessoa.endereco.numero }},
+                {{ contact.pessoa.endereco.bairro }} -
+                {{ contact.pessoa.endereco.cidade }}-
+                {{ contact.pessoa.endereco.estado }},
+                {{ contact.pessoa.endereco.pais }}. CEP:
                 {{ contact.pessoa.endereco.cep }}
               </td>
               <td>{{ contact.email }}</td>
-              <td>{{ contact. telefone }}</td>
+              <td>{{ contact.telefone }}</td>
               <td>
-                <router-link 
-                  :to="{ path: '/contatos/editar', query: { id: contact.id } }" id="edit-contact">
+                <router-link
+                  :to="{
+                    path: '/contatos/editar',
+                    query: { id_user: contact.pessoa.id },
+                  }"
+                  id="edit-contact"
+                >
                   <img
                     class="icon-edit"
                     src="../../public/img/edit.png"
@@ -61,7 +69,7 @@
               </td>
               <td>
                 <img
-                @click="deleteContact(contact.id, contact.nome)"
+                  @click="deleteContact(contact.pessoa.id, contact.pessoa.nome)"
                   class="icon-delete"
                   src="../../public/img/delete.png"
                   alt="Editar"
@@ -79,8 +87,8 @@
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Navbar from "../components/Navbar";
-import axios from "axios";
 import Message from "../components/Message";
+import axios from "axios";
 
 export default {
   name: "Contacts",
@@ -88,7 +96,7 @@ export default {
     Button,
     Input,
     Navbar,
-    Message
+    Message,
   },
   data() {
     return {
@@ -98,14 +106,31 @@ export default {
   },
   methods: {
     getContacts() {
-      const response = axios.post("/contato/pesquisar", { termo: "" })
+      const response = axios
+        .post("/contato/pesquisar", { termo: "" })
         .then((response) => {
           this.contacts = response.data;
-          console.log( 'cont', this.contacts)
+          console.log("cont", this.contacts);
         })
         .catch((error) => {
           console.log("error", error);
         });
+    },
+    deleteContact(id, contact) {
+      const response = axios
+        .delete("/contato/remover/" + id)
+        .then((response) => {
+          this.msg = "Dado deletado com sucesso!";
+          this.setMessage();
+          this.getPeople();
+        })
+        .catch(() => {
+          this.msg = `Não foi possivel remover os dados de ${contact}.`;
+          this.setMessage();
+        });
+    },
+    setMessage() {
+      setTimeout(() => (this.msg = ""), 2500);
     },
   },
   mounted() {
@@ -115,6 +140,11 @@ export default {
 </script>
 
 <style scoped>
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #add-contact {
   background-color: rgb(36, 124, 65);
   padding: 8px;

@@ -41,10 +41,6 @@
                 />
               </td>
 
-              {{
-                src
-              }}
-
               <td class="address">
                 {{ person.endereco.logradouro }}, {{ person.endereco.numero }},
                 {{ person.endereco.bairro }} - {{ person.endereco.cidade }}-
@@ -104,7 +100,7 @@ export default {
         .post("/pessoa/pesquisar", { nome: "" })
         .then((response) => {
           this.people = response.data;
-        })
+        });
     },
     getPhoto(id) {
       const response = axios.get("foto/download/" + id).then((response) => {

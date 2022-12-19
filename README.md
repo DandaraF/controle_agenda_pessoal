@@ -1,19 +1,21 @@
-# controle_agenda_pessoal
+# Controle de agenda pessoal
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Tecnologias
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Vuejs3
+- Axios
+- CSS
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Como executar
+
+* Clone este repositório
+
+* Instalar o npm:
+  ```console
+  npm install
+  ```
+* Starte o projeto:
+  ```console
+  npm run serve
+  ```
