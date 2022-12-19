@@ -20,3 +20,6 @@
   ```console
   npm run serve
   ```
+# Usuario e senha para entrar na aplicação:
+- usuario: dands
+- senha: 12345678
