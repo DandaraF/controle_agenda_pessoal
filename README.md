@@ -1,5 +1,7 @@
 # Controle de agenda pessoal
 
+## Objetivo
+ - Desenvolver uma aplicação para controle de agenda pessoal.
 
 ## Tecnologias
 
