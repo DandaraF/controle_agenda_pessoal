@@ -1,32 +1,56 @@
 <template>
-   <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-            <div class="nav-title">
-            <span>Agenda</span> 
-            </div>
-        </div>
-        <div class="nav-btn">
-          <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-       </div>
-        <div class="nav-links">
-          <router-link  to="/home" id="home"> Home</router-link>
-          <router-link  to="/meu_cadastro" id="myuser">Meu Cadastro</router-link>
-          <router-link  to="/usuarios" id="users">Usuários</router-link>
-          <router-link  to="/pessoas" id="users">Pessoas</router-link>
-          <router-link  to="/contatos" id="users">Contatos</router-link>
-          <router-link  to="#" id="users">Logout</router-link>
-        </div>
+  <div class="nav">
+    <input type="checkbox" id="nav-check" />
+    <div class="nav-header">
+      <div class="nav-title">
+        <span>Agenda</span>
+      </div>
     </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    <div class="nav-links">
+      <a href="/home"> Home</a>
+      <a href="/meu_cadastro">Meu Cadastro</a>
+      <a href="/usuarios" v-if="user == 'ROLE_ADMIN'">Usuários</a>
+      <a href="/pessoas">Pessoas</a>
+      <a href="/contatos">Contatos</a>
+      <a href="/" @click="logout">Logout</a>
+    </div>
+  </div>
 </template>
 
+<script>
+export default {
+  props: {
+    user: String,
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("id");
+      this.$$router.push("/");
+    },
+  },
+  mounted() {
+    this.user = localStorage.getItem("user");
+  },
+};
+</script>
+
 <style scoped>
-span{
-    color: rgb(247, 247, 247);
+span {
+  color: rgb(247, 247, 247);
 }
 .nav {
   height: 50px;
@@ -73,7 +97,7 @@ span{
   display: none;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .nav > .nav-btn {
     display: inline-block;
     position: absolute;
@@ -86,7 +110,8 @@ span{
     height: 50px;
     padding: 13px;
   }
-  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+  .nav > .nav-btn > label:hover,
+  .nav #nav-check:checked ~ .nav-btn > label {
     background-color: rgba(0, 0, 0, 0.3);
   }
   .nav > .nav-btn > label > span {

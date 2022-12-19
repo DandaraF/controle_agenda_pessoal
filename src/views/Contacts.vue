@@ -1,56 +1,64 @@
 <template>
-  <div class="container-people">
+  <div class="container-contacts">
     <Navbar />
-    <div class="content-people-header">
-      <h2>Pessoas</h2>
+    <div class="content-contacts-header">
+      <h2>Contatos</h2>
       <div class="container-seacher">
         <Input />
         <img src="../../public/img/search.png" :alt="Pesquisar" id="search" />
       </div>
-      <router-link to="/pessoas/cadastrar" id="add-person">
-        + Add pessoa</router-link
+      <router-link to="/contatos/cadastrar" id="add-contact">
+        + Add contato</router-link
       >
     </div>
 
     <div class="message">
       <Message :msg="msg" v-show="msg" />
     </div>
-
     <div class="table">
       <div class="table_section">
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Nome contato</th>
               <th>CPF</th>
               <th>Foto</th>
               <th>Endereço</th>
+              <th>Email</th>
+              <th>telefone</th>
               <th>Editar</th>
               <th>Excluir</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="person in people" :key="person.id">
-              <td>{{ person.nome }}</td>
-              <td>{{ person.cpf }}</td>
+            <tr v-for="contact in contacts" :key="contact.pessoa.id">
+              <td>{{ contact.pessoa.nome }}</td>
+              <td>{{ contact.pessoa.cpf }}</td>
               <td>
                 <img
                   class="photo-user"
                   src="../../public/img/avatar.png"
-                  alt="foto"
+                  alt=""
                 />
               </td>
-
               <td class="address">
-                {{ person.endereco.logradouro }}, {{ person.endereco.numero }},
-                {{ person.endereco.bairro }} - {{ person.endereco.cidade }}-
-                {{ person.endereco.estado }}, {{ person.endereco.pais }}. CEP:
-                {{ person.endereco.cep }}
+                {{ contact.pessoa.endereco.logradouro }},
+                {{ contact.pessoa.endereco.numero }},
+                {{ contact.pessoa.endereco.bairro }} -
+                {{ contact.pessoa.endereco.cidade }}-
+                {{ contact.pessoa.endereco.estado }},
+                {{ contact.pessoa.endereco.pais }}. CEP:
+                {{ contact.pessoa.endereco.cep }}
               </td>
+              <td>{{ contact.email }}</td>
+              <td>{{ contact.telefone }}</td>
               <td>
                 <router-link
-                  :to="{ path: '/pessoas/editar', query: { id: person.id } }"
-                  id="edit-person"
+                  :to="{
+                    path: '/contatos/editar',
+                    query: { id_user: contact.pessoa.id },
+                  }"
+                  id="edit-contact"
                 >
                   <img
                     class="icon-edit"
@@ -60,9 +68,11 @@
                 </router-link>
               </td>
               <td>
-                <Button
-                  text_button="Excluir"
-                  @click="deletePerson(person.id, person.nome)"
+                <img
+                  @click="deleteContact(contact.pessoa.id, contact.pessoa.nome)"
+                  class="icon-delete"
+                  src="../../public/img/delete.png"
+                  alt="Editar"
                 />
               </td>
             </tr>
@@ -74,14 +84,14 @@
 </template>
 
 <script>
-import axios from "axios";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Navbar from "../components/Navbar";
 import Message from "../components/Message";
+import axios from "axios";
 
 export default {
-  name: "People",
+  name: "Contacts",
   components: {
     Button,
     Input,
@@ -90,33 +100,32 @@ export default {
   },
   data() {
     return {
-      people: [],
+      contacts: [],
       msg: null,
     };
   },
   methods: {
-    getPeople() {
+    getContacts() {
       const response = axios
-        .post("/pessoa/pesquisar", { nome: "" })
+        .post("/contato/pesquisar", { termo: "" })
         .then((response) => {
-          this.people = response.data;
+          this.contacts = response.data;
+          console.log("cont", this.contacts);
+        })
+        .catch((error) => {
+          console.log("error", error);
         });
     },
-    getPhoto(id) {
-      const response = axios.get("foto/download/" + id).then((response) => {
-        return response;
-      });
-    },
-    deletePerson(id, person) {
+    deleteContact(id, contact) {
       const response = axios
-        .delete("pessoa/remover/" + id)
+        .delete("/contato/remover/" + id)
         .then((response) => {
           this.msg = "Dado deletado com sucesso!";
           this.setMessage();
           this.getPeople();
         })
         .catch(() => {
-          this.msg = `Não foi possivel remover os dados de ${person}.`;
+          this.msg = `Não foi possivel remover os dados de ${contact}.`;
           this.setMessage();
         });
     },
@@ -125,7 +134,7 @@ export default {
     },
   },
   mounted() {
-    this.getPeople();
+    this.getContacts();
   },
 };
 </script>
@@ -136,8 +145,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-#add-person {
+#add-contact {
   background-color: rgb(36, 124, 65);
   padding: 8px;
   border-radius: 6px;
@@ -145,19 +153,19 @@ export default {
   color: #fff;
 }
 
-#add-person:hover {
+#add-contact:hover {
   opacity: 0.8;
 }
 
 h2 {
-  color: rgb(160, 160, 0);
+  color: rgb(105, 105, 10);
 }
 
 #search {
   width: 25px;
 }
 
-.content-people-header {
+.content-contacts-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -166,7 +174,7 @@ h2 {
   background-color: rgb(240, 240, 240);
 }
 
-.content-people-headerr p {
+.content-contacts-headerr p {
   color: #000;
 }
 
@@ -181,7 +189,6 @@ h2 {
 }
 
 .table_section {
-  height: 500px;
   overflow: auto;
 }
 
@@ -200,9 +207,7 @@ th,
 td {
   border-bottom: 1px solid #dddddd;
   padding: 10px 20px;
-  word-break: break-all;
   text-align: center;
-  min-width: 100px;
 }
 
 .address {
@@ -242,14 +247,25 @@ tr:hover td {
   opacity: 0.7;
 }
 
+.icon-delete {
+  width: 25px;
+}
+
+.icon-delete:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 600px) {
   .container-seacher {
     margin: 10px 0 20px;
   }
-  .content-people-header {
+  .content-contacts-header {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  tbody {
+    font-size: 14px;
   }
 }
 </style>

@@ -1,28 +1,24 @@
 <template>
-    <div class="content-input">
-        <label > {{text_label}} </label>
-        <input :type="type_input" class="input-text" :value="value_input" >
-    </div>
+  <div class="content-input">
+    <label> {{ text_label }} </label>
+    <input :type="type_input" class="input-text" :value="value_input" />
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'Input',
-    props:{
-        text_label:String,
-        value_input: String,
-        type_input: String
-    },
-
- }
-
+  name: "Input",
+  props: {
+    text_label: String,
+    value_input: String,
+    type_input: String,
+  },
+};
 </script>
 
 
 <style scoped>
-
-.content-input{
+.content-input {
   display: flex;
   flex-direction: column;
   min-width: 300px;
@@ -34,19 +30,18 @@ export default {
   /* gap: 5px; */
 }
 
-label{
+label {
   border-left: 4px solid rgb(160, 160, 0);
   color: #000;
   margin: 0 0 3px 0;
   padding-left: 3px;
   font-weight: 560;
 }
-.input-text{
+.input-text {
   height: 33px;
   min-width: 250px;
   border: 1px solid rgb(122, 122, 122);
   font-size: 1rem;
   padding-left: 10px;
 }
-
 </style>

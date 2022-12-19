@@ -1,24 +1,27 @@
 <template>
-  <div class="container-form-people">
-    <p>{{ mensage_info }}</p>
+  <div class="container-form-contact">
     <h2>{{ text_form }}</h2>
-    <form @submit="postPerson($event)">
-      <div class="container-image-person" :key="person.id">
+    <form @submit="postContact($event)" :key="contact.pessoa.id">
+      <div class="container-image-contact">
         <Picture />
       </div>
 
       <input
         type="text"
-        name="nome"
         placeholder="Nome"
-        v-model="person.nome"
+        v-model="contact.pessoa.nome"
         required
       />
       <input
         type="text"
-        name="cpf"
         placeholder="CPF"
-        v-model="person.cpf"
+        v-model="contact.pessoa.cpf"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Telefone"
+        v-model="contact.telefone"
         required
       />
       <div class="address">
@@ -26,53 +29,46 @@
 
         <input
           type="text"
-          name="logradouro"
           placeholder="Logradouro"
-          v-model="person.endereco.logradouro"
+          v-model="contact.pessoa.endereco.logradouro"
           required
         />
         <input
           type="text"
-          name="number-house"
           placeholder="Número"
-          v-model="person.endereco.numero"
+          v-model="contact.pessoa.endereco.numero"
           required
         />
         <input
           type="text"
-          name="cep"
           placeholder="CEP"
-          v-model="person.endereco.cep"
+          v-model="contact.pessoa.endereco.cep"
           required
         />
         <input
           type="text"
-          name="bairro"
           placeholder="Bairro"
-          v-model="person.endereco.bairro"
+          v-model="contact.pessoa.endereco.bairro"
           required
         />
         <input
           type="text"
-          name="city"
           placeholder="Cidade"
-          v-model="person.endereco.cidade"
+          v-model="contact.pessoa.endereco.cidade"
           required
         />
         <input
           type="text"
-          name="city"
           placeholder="Estado: SP"
-          v-model="person.endereco.estado"
+          v-model="contact.pessoa.endereco.estado"
           maxlength="2"
           class="acronym"
           required
         />
         <input
           type="text"
-          name="country"
           placeholder="País: BR"
-          v-model="person.endereco.pais"
+          v-model="contact.pessoa.endereco.pais"
           maxlength="2"
           class="acronym"
           required
@@ -89,76 +85,92 @@ import Picture from "../Picture.vue";
 import axios from "axios";
 
 export default {
-  name: "FormUser",
+  name: "FormContact",
   components: {
     Picture,
   },
   props: {
-    mensage_info: String,
     text_form: String,
     text_btn: String,
   },
   data() {
     return {
-      mensage_info: "",
-      person: {
-        nome: "",
-        cpf: "",
-        endereco: {
-          logradouro: "",
-          numero: 0,
-          cep: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-          pais: "",
+      contact: {
+        pessoa: {
+          id: 1,
+          nome: "",
+          cpf: "",
+          endereco: {
+            logradouro: "",
+            numero: 0,
+            cep: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            pais: "",
+          },
         },
+        telefone: "",
+        tipoContato: "",
       },
     };
   },
   methods: {
-    getPerson(id) {
-      const response = axios.get("/pessoa/buscar/" + id).then((response) => {
-        this.person = response.data.object;
+    getContact(id) {
+      const response = axios.get("/contato/listar/" + id).then((response) => {
+        this.contact = response.data[0];
       });
     },
-    postPerson(e) {
+    postContact(e) {
       e.preventDefault();
       const data = {
-        cpf: this.person.cpf,
-        nome: this.person.nome,
-        endereco: {
-          logradouro: this.person.endereco.logradouro,
-          numero: this.person.endereco.numero,
-          cep: this.person.endereco.cep,
-          bairro: this.person.endereco.bairro,
-          cidade: this.person.endereco.cidade,
-          estado: this.person.endereco.estado,
-          pais: this.person.endereco.pais,
+        pessoa: {
+          id: this.contact.pessoa.id,
+          cpf: this.contact.pessoa.cpf,
+          nome: this.contact.pessoa.nome,
+          endereco: {
+            logradouro: this.contact.pessoa.endereco.logradouro,
+            numero: this.contact.pessoa.endereco.numero,
+            cep: this.contact.pessoa.endereco.cep,
+            bairro: this.contact.pessoa.endereco.bairro,
+            cidade: this.contact.pessoa.endereco.cidade,
+            estado: this.contact.pessoa.endereco.estado,
+            pais: this.contact.pessoa.endereco.pais,
+          },
+        },
+        telefone: this.contact.telefone,
+        tipoContato: this.contact.tipoContato,
+        usuario: {
+          nome: "string",
+          dataNascimento: "2022-12-14",
+          cpf: "string",
+          email: "string",
+          telefone: "string",
+          username: "string",
+          password: "string",
         },
       };
 
       const response = axios
-        .post("/pessoa/salvar", data)
+        .post("/contato/salvar", data)
         .then((response) => {
           alert("Requisição efetuada com sucesso!");
-          this.$router.push({ name: "people" });
+          this.$router.push({ name: "contacts" });
         })
         .catch((error) => {
-          alert("Solicitação não efetuada ", error);
+          alert("Solicitação não efetuada", error);
         });
     },
   },
-
   mounted() {
-    this.getPerson(this.$route.query.id);
+    this.getContact(this.$route.query.id_user);
   },
 };
 </script>
   
 <style scoped>
-.mensage_info {
-  display: none;
+hr {
+  margin-bottom: 20px;
 }
 .acronym {
   text-transform: uppercase;
@@ -172,7 +184,7 @@ h3 {
   padding: 10px;
 }
 
-.container-form-people {
+.container-form-contact {
   font-family: "Open Sans Condensed", arial, sans;
   max-width: 500px;
   padding: 30px;
@@ -182,7 +194,7 @@ h3 {
   -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 }
-.container-form-people h2 {
+.container-form-contact h2 {
   background: #354152;
   text-transform: uppercase;
   font-family: "Open Sans Condensed", sans-serif;
@@ -192,13 +204,13 @@ h3 {
   padding: 20px;
   margin: -30px -30px 30px -30px;
 }
-.container-form-people input[type="text"],
-.container-form-people input[type="date"],
-.container-form-people input[type="number"],
-.container-form-people input[type="email"],
-.container-form-people input[type="password"],
-.container-form-people textarea,
-.container-form-people select {
+.container-form-contact input[type="text"],
+.container-form-contact input[type="date"],
+.container-form-contact input[type="number"],
+.container-form-contact input[type="email"],
+.container-form-contact input[type="password"],
+.container-form-contact textarea,
+.container-form-contact select {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -213,8 +225,8 @@ h3 {
   font: 16px Arial, Helvetica, sans-serif;
   height: 45px;
 }
-.container-form-people input[type="button"],
-.container-form-people input[type="submit"] {
+.container-form-contact input[type="button"],
+.container-form-contact input[type="submit"] {
   -moz-box-shadow: inset 0px 1px 0px 0px rgb(160, 160, 0);
   -webkit-box-shadow: inset 0px 1px 0px 0px rgb(160, 160, 0);
   box-shadow: inset 0px 1px 0px 0px rgb(160, 160, 0);
@@ -229,8 +241,8 @@ h3 {
   text-decoration: none;
   text-transform: uppercase;
 }
-.container-form-people input[type="button"]:hover,
-.container-form-people input[type="submit"]:hover {
+.container-form-contact input[type="button"]:hover,
+.container-form-contact input[type="submit"]:hover {
   background: linear-gradient(
     to bottom,
     rgba(160, 160, 0, 0.452) 5%,
@@ -239,7 +251,7 @@ h3 {
   background-color: rgba(160, 160, 0, 0.329);
 }
 
-.container-image-person {
+.container-image-contact {
   display: flex;
   flex-direction: column;
   align-items: center;

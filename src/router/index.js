@@ -24,11 +24,7 @@ const routes = [
     name: 'users',
     component: () => import(/* webpackChunkName: "users" */ '../views/Users.vue')
   },
-  {
-    path: '/usuarios/editar',
-    name: 'user_edit',
-    component: () => import(/* webpackChunkName: "user_edit" */ '../views/users/EditUser.vue')
-  },
+
   {
     path: '/usuarios/cadastrar',
     name: 'user_register',
@@ -51,8 +47,18 @@ const routes = [
   },
   {
     path: '/contatos',
-    name: 'contact',
-    component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue')
+    name: 'contacts',
+    component: () => import(/* webpackChunkName: "contacts" */ '../views/Contacts.vue')
+  },
+  {
+    path: '/contatos/editar',
+    name: 'contact_edit',
+    component: () => import(/* webpackChunkName: "contact_edit" */ '../views/contact/EditContact.vue')
+  },
+  {
+    path: '/contatos/cadastrar',
+    name: 'contact_register',
+    component: () => import(/* webpackChunkName: "contact_register" */ '../views/contact/RegisterContact.vue')
   },
 
 
