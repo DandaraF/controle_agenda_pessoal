@@ -71,9 +71,9 @@ export default {
           let accessToken=response.data['accessToken']
           let user=response.data['tipos'][0]
 
-
           localStorage.setItem('token', accessToken)
           localStorage.setItem('user', user)
+          localStorage.setItem('id', response.data.id)
 
           this.$router.push('/home')
 

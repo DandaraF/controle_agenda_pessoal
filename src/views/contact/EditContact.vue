@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navbar/>
     <FormContact text_form="Editar contato" text_btn="Editar"/>
   </div>
   
@@ -7,11 +8,13 @@
 
 <script>
 import FormContact from './../../components/form/FormContact.vue'
+import Navbar from './../../components/Navbar.vue'
 
 export default {
   name: 'EditContact',
   components:{
-    FormContact
+    FormContact,
+    Navbar
   }
 }
 

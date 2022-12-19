@@ -47,7 +47,7 @@
               CEP: {{person.endereco.cep}}
             </td>
             <td>
-              <router-link  :to="{path: '/pessoas/editar', query:{id:person.id}}" id="edit-person" >
+              <router-link :to="{path: '/pessoas/editar', query:{id:person.id}}" id="edit-person" >
                <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
               </router-link>
             </td>

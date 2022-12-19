@@ -8,7 +8,7 @@
 
     <div class="table_header">
       <h2>Usuários</h2>
-      <router-link  to="/usuarios/cadastrar" id="add-user" > + Add usuário</router-link>
+      <router-link to="/usuarios/cadastrar" id="add-user" > + Add usuário</router-link>
     </div>
 
     <div class="table_section">
@@ -20,7 +20,6 @@
             <th>CPF</th>
             <th>Email</th>
             <th>Telefone</th>
-            <th>Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -31,11 +30,6 @@
             <td>{{usuario.email}}</td>
             <td>{{usuario.telefone}}</td>
            
-            <td>
-              <router-link  to="/usuarios/editar" id="edit_user" >
-               <img class="icon-edit" src="../../public/img/edit.png" alt="Editar">
-              </router-link>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -68,7 +62,7 @@ export default {
     getusuarios(){
       const response = axios.post("/usuario/pesquisar", {"termo":''})
       .then((response)=>{
-        this.usuarios = response.data;
+        this.usuarios = response.data; 
       })
     }
     

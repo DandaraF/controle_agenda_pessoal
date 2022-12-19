@@ -1,7 +1,6 @@
 <template>
   <div>
      <Navbar/>
-
     <FormUser text_form="Editar meu cadastro" text_btn="Editar"/>
   </div>
  </template>
@@ -14,8 +13,8 @@ export default {
   name: 'MyUser',
   components:{
     FormUser,
-    Navbar,
-    Message
+    Navbar
+    
   }
 }
 </script>
