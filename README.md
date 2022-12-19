@@ -5,7 +5,6 @@
 
 - Vuejs3
 - Axios
-- CSS
 
 ## Como executar
 
